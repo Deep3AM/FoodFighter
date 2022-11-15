@@ -12,8 +12,9 @@ public class BaseSkill : ScriptableObject
     public int Value { get { return value; } }
     public void SetValue(int level)
     {
-        int result = 0;
-        ExpressionEvaluator.Evaluate(valueExpression, out result);
+        int result = 10;
+        //ExpressionEvaluator.Evaluate((valueExpression), out result);
         value = result;
+        Debug.Log($"damage: {result}");
     }
 }

@@ -1,12 +1,13 @@
-using Class;
+using System;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    public EventHandler onDieEvent;
+    [SerializeField] private BaseUnitStat baseUnitStat;
     private string unitName;
-    private UnitStat unitStat;
     private int level;
-    private int hpStat;
+    [SerializeField] private int hpStat;
     private int attackStat;
     private int defenseStat;
     private int accuracyStat;
@@ -25,17 +26,18 @@ public class Unit : MonoBehaviour
 
     public void SetUnitStat()
     {
-        level = unitStat.Level;
-        hpStat = unitStat.SetUnitAttack();
-        attackStat = unitStat.SetUnitAttack();
-        defenseStat = unitStat.SetUnitDefense();
-        accuracyStat = unitStat.SetUnitAccuracy();
-        luckStat = unitStat.SetUnitLuck();
-        speedStat = unitStat.SetUnitSpeed();
+        level = 1;
+        hpStat = baseUnitStat.BaseHP;
+        attackStat = baseUnitStat.BaseAttack;
+        defenseStat = baseUnitStat.BaseDefense;
+        accuracyStat = baseUnitStat.BaseAccuracy;
+        luckStat = baseUnitStat.BaseLuck;
+        speedStat = baseUnitStat.BaseSpeed;
     }
 
     public void Attack(Unit enemy)
     {
+        attackBlock.SetValue(attackStat);
         enemy.Damaged(this, attackBlock.Value);
     }
 
