@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1081ec1a85e7968498b9c3f2b7ce43eb, type: 3}
   m_Name: Test2
   m_EditorClassIdentifier: 
-  unitName: 
+  unitName: TestUnit2
   property: 0
-  baseHP: 0
+  baseHP: 30
   baseAttack: 0
   baseDefense: 0
   baseAccuracy: 0

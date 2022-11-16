@@ -27,6 +27,7 @@ public class Unit : MonoBehaviour
     public void SetUnitStat()
     {
         level = 1;
+        unitName = baseUnitStat.UnitName;
         hpStat = baseUnitStat.BaseHP;
         attackStat = baseUnitStat.BaseAttack;
         defenseStat = baseUnitStat.BaseDefense;
@@ -35,10 +36,11 @@ public class Unit : MonoBehaviour
         speedStat = baseUnitStat.BaseSpeed;
     }
 
-    public void Attack(Unit enemy)
+    public int Attack(Unit enemy)
     {
         attackBlock.SetValue(attackStat);
         enemy.Damaged(this, attackBlock.Value);
+        return attackBlock.Value;
     }
 
     public void Damaged(Unit enemy, int damage)
