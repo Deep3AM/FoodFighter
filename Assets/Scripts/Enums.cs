@@ -1,13 +1,10 @@
 namespace Enum
 {
-    public enum PropertyName
+    public enum FoodType
     {
         None,
-        One,
-        Two,
-        Three,
-        Four,
-        Five,
-        Six
+        Meat,
+        Rice,
+        Bread
     };
 }

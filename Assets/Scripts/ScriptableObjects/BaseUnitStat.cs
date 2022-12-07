@@ -3,7 +3,7 @@ using UnityEngine;
 public class BaseUnitStat : ScriptableObject
 {
     [SerializeField] private string unitName;
-    [SerializeField] private Enum.PropertyName property;
+    [SerializeField] private Enum.FoodType type;
     [SerializeField] private int baseHP;
     [SerializeField] private int baseAttack;
     [SerializeField] private int baseDefense;
@@ -13,7 +13,7 @@ public class BaseUnitStat : ScriptableObject
     [SerializeField] private int baseTier;
 
     public string UnitName { get { return unitName; } }
-    public Enum.PropertyName Property { get { return property; } }
+    public Enum.FoodType Type { get { return type; } }
     public int BaseHP { get { return baseHP; } }
     public int BaseAttack { get { return baseAttack; } }
     public int BaseDefense { get { return baseDefense; } }
