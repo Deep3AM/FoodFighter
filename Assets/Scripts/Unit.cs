@@ -38,9 +38,9 @@ public class Unit : MonoBehaviour
 
     public int Attack(Unit enemy)
     {
-        attackBlock.SetValue(attackStat);
-        enemy.Damaged(this, attackBlock.Value);
-        return attackBlock.Value;
+        attackBlock.SetValue(level);
+        enemy.Damaged(this, attackBlock.SetValue(level));
+        return attackBlock.SetValue(level);
     }
 
     public void Damaged(Unit enemy, int damage)

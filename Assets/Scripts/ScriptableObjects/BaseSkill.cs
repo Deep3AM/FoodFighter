@@ -2,19 +2,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Base Skill", menuName = "Scriptable Objects/Base Skill", order = int.MaxValue)]
 public class BaseSkill : ScriptableObject
 {
-    [SerializeField] string attackName;
+    [SerializeField] string skillName;
     [SerializeField] string explain;
-    [SerializeField] int value;
     [SerializeField] string valueExpression;
+    [SerializeField, Range(1, 4)] int attackRange;
 
-    public string AttackName { get { return attackName; } }
+    public string AttackName { get { return skillName; } }
     public string Explain { get { return explain; } }
-    public int Value { get { return value; } }
-    public void SetValue(int level)
+    public int AttackRange { get { return attackRange; } }
+    public int SetValue(int level)
     {
         int result = 10;
-        //ExpressionEvaluator.Evaluate((valueExpression), out result);
-        value = result;
+        ExpressionEvaluator.Evaluate(string.Format(valueExpression, level), out result);
         Debug.Log($"damage: {result}");
+        return result;
     }
 }

@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BattleDemo.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/MapGenerator.unity
+    guid: 89afd7ada543eb84a9567a8c3f2604ed
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 6d86b6204c7656d40962f33d739c7c28
   m_configObjects: {}
