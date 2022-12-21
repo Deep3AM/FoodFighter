@@ -11,6 +11,10 @@ public class BaseUnitStat : ScriptableObject
     [SerializeField] private int baseLuck;
     [SerializeField] private float baseSpeed;
     [SerializeField] private int baseTier;
+    [SerializeField] private BaseSkill firstAttack;
+    [SerializeField] private BaseSkill secondAttack;
+    [SerializeField] private BaseSkill thirdAttack;
+    [SerializeField] private BaseSkill fourthAttack;
 
     public string UnitName { get { return unitName; } }
     public Enum.FoodType Type { get { return type; } }
@@ -21,6 +25,10 @@ public class BaseUnitStat : ScriptableObject
     public int BaseLuck { get { return baseLuck; } }
     public float BaseSpeed { get { return baseSpeed; } }
     public int BaseTier { get { return baseTier; } }
+    public BaseSkill FirstAttack { get { return firstAttack; } }
+    public BaseSkill SecondAttack { get { return secondAttack; } }
+    public BaseSkill ThirdAttack { get { return thirdAttack; } }
+    public BaseSkill FourthAttack { get { return fourthAttack; } }
 
     public void SetStat()
     {

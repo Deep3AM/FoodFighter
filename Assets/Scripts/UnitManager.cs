@@ -32,7 +32,7 @@ public class UnitManager : Singleton<UnitManager>
         unitCanvas.SetUnitUICanvas(home, away);
     }
 
-    public void CalculateBattle()
+    public void CalculateBattle(int attackPhase)
     {
         turnSimulator.Clear();
         units.Sort((Unit x, Unit y) => x.SpeedStat.CompareTo(y.SpeedStat));
@@ -44,17 +44,17 @@ public class UnitManager : Singleton<UnitManager>
             if (home.Contains(units[i]))
             {
                 victim = away[Random.Range(0, away.Count)];
-                damage = units[i].Attack(victim);
+                damage = units[i].Attack(victim, attackPhase);
             }
             else
             {
                 victim = home[Random.Range(0, home.Count)];
-                damage = units[i].Attack(victim);
+                damage = units[i].Attack(victim, attackPhase);
             }
             turnSimulator.Add(DamageDebug(units[i].UnitName, victim.UnitName, damage));
             turnSimulator.Add(unitAndUnitUI[victim].TakeDamage(damage));
         }
-        StartCoroutine(SimulateTurn(turnSimulator));
+        StartCoroutine(SimulateTurn(turnSimulator, attackPhase));
     }
 
     private void OnDieEvent(object sender, EventArgs e)
@@ -78,11 +78,17 @@ public class UnitManager : Singleton<UnitManager>
         yield return null;
     }
 
-    IEnumerator SimulateTurn(List<IEnumerator> enumerators)
+    IEnumerator SimulateTurn(List<IEnumerator> enumerators, int attackPhase)
     {
+        Debug.Log($"Current Attack Phase: {attackPhase}"); ;
         foreach (IEnumerator enumerator in enumerators)
         {
             yield return enumerator;
+        }
+        if (attackPhase < 4)
+        {
+            attackPhase = attackPhase + 1;
+            CalculateBattle(attackPhase);
         }
     }
 }

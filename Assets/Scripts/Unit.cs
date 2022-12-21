@@ -13,7 +13,10 @@ public class Unit : MonoBehaviour
     private int accuracyStat;
     private int luckStat;
     private float speedStat;
-    [SerializeField] private BaseSkill attackBlock;
+    private BaseSkill firstAttack;
+    private BaseSkill secondAttack;
+    private BaseSkill thirdAttack;
+    private BaseSkill fourthAttack;
 
     public string UnitName { get { return unitName; } }
     public int Level { get { return level; } }
@@ -34,13 +37,39 @@ public class Unit : MonoBehaviour
         accuracyStat = baseUnitStat.BaseAccuracy;
         luckStat = baseUnitStat.BaseLuck;
         speedStat = baseUnitStat.BaseSpeed;
+        firstAttack = baseUnitStat.FirstAttack;
+        secondAttack = baseUnitStat.SecondAttack;
+        thirdAttack = baseUnitStat.ThirdAttack;
+        fourthAttack = baseUnitStat.FourthAttack;
     }
 
-    public int Attack(Unit enemy)
+    public int Attack(Unit enemy, int attackPhase)
     {
-        attackBlock.SetValue(level);
-        enemy.Damaged(this, attackBlock.SetValue(level));
-        return attackBlock.SetValue(level);
+        if (attackPhase == 1)
+        {
+            firstAttack.SetValue(level);
+            enemy.Damaged(this, firstAttack.SetValue(level));
+            return firstAttack.SetValue(level);
+        }
+        else if (attackPhase == 2)
+        {
+            secondAttack.SetValue(level);
+            enemy.Damaged(this, secondAttack.SetValue(level));
+            return secondAttack.SetValue(level);
+        }
+        else if (attackPhase == 3)
+        {
+            thirdAttack.SetValue(level);
+            enemy.Damaged(this, thirdAttack.SetValue(level));
+            return thirdAttack.SetValue(level);
+        }
+        else
+        {
+            fourthAttack.SetValue(level);
+            enemy.Damaged(this, fourthAttack.SetValue(level));
+            return fourthAttack.SetValue(level);
+        }
+
     }
 
     public void Damaged(Unit enemy, int damage)

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Test1
   m_EditorClassIdentifier: 
   unitName: TestUnit1
-  property: 1
+  type: 0
   baseHP: 100
   baseAttack: 10
   baseDefense: 10
@@ -21,3 +21,7 @@ MonoBehaviour:
   baseLuck: 10
   baseSpeed: 0.5
   baseTier: 0
+  firstAttack: {fileID: 11400000, guid: b6a5be3a7cc9d3f40981f8fd680cdb1a, type: 2}
+  secondAttack: {fileID: 11400000, guid: b6a5be3a7cc9d3f40981f8fd680cdb1a, type: 2}
+  thirdAttack: {fileID: 11400000, guid: b6a5be3a7cc9d3f40981f8fd680cdb1a, type: 2}
+  fourthAttack: {fileID: 11400000, guid: b6a5be3a7cc9d3f40981f8fd680cdb1a, type: 2}

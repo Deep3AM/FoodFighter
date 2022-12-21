@@ -6,7 +6,7 @@ public class Test : MonoBehaviour
     void Start()
     {
         UnitManager.Instance.SetBattle();
-        UnitManager.Instance.CalculateBattle();
+        UnitManager.Instance.CalculateBattle(1);
     }
 
     // Update is called once per frame
