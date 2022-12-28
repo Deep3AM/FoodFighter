@@ -13,6 +13,7 @@ public class UnitManager : Singleton<UnitManager>
     public ConcurrentDictionary<Unit, UnitUI> unitAndUnitUI = new ConcurrentDictionary<Unit, UnitUI>();
     private UnitCanvas unitCanvas = null;
     private List<IEnumerator> turnSimulator = new List<IEnumerator>();
+    private bool isEndedBeforeEndPhase = false;
 
     public void SetBattle()
     {
@@ -34,11 +35,13 @@ public class UnitManager : Singleton<UnitManager>
 
     public void CalculateBattle(int attackPhase)
     {
+        unitCanvas.SetPhaseDebugText(attackPhase);
         turnSimulator.Clear();
         units.Sort((Unit x, Unit y) => x.SpeedStat.CompareTo(y.SpeedStat));
         Random.InitState((int)DateTime.Now.Ticks);
         for (int i = 0; i < units.Count; i++)
         {
+            Unit unit = units[i];
             Unit victim;
             int damage;
             if (home.Contains(units[i]))
@@ -51,8 +54,22 @@ public class UnitManager : Singleton<UnitManager>
                 victim = home[Random.Range(0, home.Count)];
                 damage = units[i].Attack(victim, attackPhase);
             }
-            turnSimulator.Add(DamageDebug(units[i].UnitName, victim.UnitName, damage));
+            //save current state and compensation before simulating this phase!
+            //users can't stop after current phase started!
+            turnSimulator.Add(DamageDebug(unit.UnitName, victim.UnitName, damage));
             turnSimulator.Add(unitAndUnitUI[victim].TakeDamage(damage));
+            if (home.Count == 0)
+            {
+                turnSimulator.Add(ScoreDebug("away"));
+                isEndedBeforeEndPhase = true;
+                break;
+            }
+            else if (away.Count == 0)
+            {
+                turnSimulator.Add(ScoreDebug("home"));
+                isEndedBeforeEndPhase = true;
+                break;
+            }
         }
         StartCoroutine(SimulateTurn(turnSimulator, attackPhase));
     }
@@ -69,12 +86,18 @@ public class UnitManager : Singleton<UnitManager>
             away.Remove(unit);
         }
         units.Remove(unit);
-        Debug.Log("{sender} had died");
+        Debug.Log($"{unit.UnitName} had died");
     }
 
     IEnumerator DamageDebug(string name, string victimName, int damage)
     {
         Debug.Log($"{name} attacked {victimName}, damage is {damage}!");
+        yield return null;
+    }
+
+    IEnumerator ScoreDebug(string s)
+    {
+        unitCanvas.ShowScoreDebugUINoButton(s);
         yield return null;
     }
 
@@ -85,10 +108,14 @@ public class UnitManager : Singleton<UnitManager>
         {
             yield return enumerator;
         }
-        if (attackPhase < 4)
+        if (attackPhase < 3 && !isEndedBeforeEndPhase)
         {
             attackPhase = attackPhase + 1;
             CalculateBattle(attackPhase);
+        }
+        else if (attackPhase == 3 && !isEndedBeforeEndPhase)
+        {
+            unitCanvas.SelectContinueLastPhase();
         }
     }
 }

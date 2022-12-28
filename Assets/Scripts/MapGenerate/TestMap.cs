@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TestMap : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class TestMap : MonoBehaviour
     {
         currentNode = mapGenrator.nodes[0][0];
         currentNode.image.color = Color.red;
+        SceneManager.LoadScene("BattleDemo");
     }
 
     public void NextNode()

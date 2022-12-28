@@ -14,7 +14,6 @@ public class BaseSkill : ScriptableObject
     {
         int result = 10;
         ExpressionEvaluator.Evaluate(string.Format(valueExpression, level), out result);
-        Debug.Log($"damage: {result}");
         return result;
     }
 }

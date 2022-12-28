@@ -15,7 +15,15 @@ public class UnitUI : MonoBehaviour
 
     public IEnumerator TakeDamage(int damage)
     {
-        hp.text = (int.Parse(hp.text) - damage).ToString();
+        int currentHP = int.Parse(hp.text) - damage;
+        if (currentHP <= 0)
+        {
+            hp.text = "0";
+        }
+        else
+        {
+            hp.text = currentHP.ToString();
+        }
         yield return new WaitForSeconds(1f);
     }
 }

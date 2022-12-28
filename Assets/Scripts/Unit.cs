@@ -75,5 +75,10 @@ public class Unit : MonoBehaviour
     public void Damaged(Unit enemy, int damage)
     {
         hpStat -= damage;
+        if (hpStat <= 0)
+        {
+            hpStat = 0;
+            onDieEvent?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

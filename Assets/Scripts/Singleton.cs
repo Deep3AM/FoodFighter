@@ -12,6 +12,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (_applicationQuit)
             {
+                Debug.Log("sdfsdfsdf");
                 return null;
             }
 
@@ -42,8 +43,10 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     }
 
 
-    public virtual void OnDestroy()
+    /*public virtual void OnDestroy() Dontdestroyonload is not validated in test!!
     {
         _applicationQuit = true;
     }
+    */
+
 }
