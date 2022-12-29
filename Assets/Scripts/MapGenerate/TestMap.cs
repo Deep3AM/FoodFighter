@@ -15,7 +15,6 @@ public class TestMap : MonoBehaviour
     {
         currentNode = mapGenrator.nodes[0][0];
         currentNode.image.color = Color.red;
-        SceneManager.LoadScene("BattleDemo");
     }
 
     public void NextNode()
@@ -29,5 +28,7 @@ public class TestMap : MonoBehaviour
         currentNode.pathImages[nextNodeIDX].color = Color.yellow;
         currentNode = currentNode.childNodes[nextNodeIDX];
         currentNode.image.color = Color.red;
+        if (currentNode.MapNodeType == Enum.MapNodeType.Monster || currentNode.MapNodeType == Enum.MapNodeType.EpicMonster)
+            SceneManager.LoadScene("BattleDemo");
     }
 }
