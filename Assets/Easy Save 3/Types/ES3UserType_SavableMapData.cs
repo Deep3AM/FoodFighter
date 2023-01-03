@@ -18,7 +18,7 @@ namespace ES3Types
 			
 			writer.WriteProperty("width", instance.width, ES3Type_int.Instance);
 			writer.WriteProperty("height", instance.height, ES3Type_int.Instance);
-			writer.WriteProperty("nodes", instance.nodes, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<EssentialNodeData>)));
+			writer.WriteProperty("nodes", instance.nodes, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<System.Collections.Generic.List<EssentialNodeData>>)));
 		}
 
 		protected override void ReadObject<T>(ES3Reader reader, object obj)
@@ -36,7 +36,7 @@ namespace ES3Types
 						instance.height = reader.Read<System.Int32>(ES3Type_int.Instance);
 						break;
 					case "nodes":
-						instance.nodes = reader.Read<System.Collections.Generic.List<EssentialNodeData>>();
+						instance.nodes = reader.Read<System.Collections.Generic.List<System.Collections.Generic.List<EssentialNodeData>>>();
 						break;
 					default:
 						reader.Skip();

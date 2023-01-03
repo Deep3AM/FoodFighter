@@ -61,7 +61,7 @@ public class SavableMapData
 {
     public int width;
     public int height;
-    public List<EssentialNodeData> nodes = new List<EssentialNodeData>();
+    public List<List<EssentialNodeData>> nodes = new List<List<EssentialNodeData>>();
 }
 
 
@@ -77,7 +77,10 @@ public class MapGenrator : MonoBehaviour
     private List<GameObject> pathImages = new List<GameObject>();
     [HideInInspector] public SavableMapData savableMapData;
 
-
+    private void Start()
+    {
+        ImportMap();
+    }
     public void Generate()
     {
         Random.InitState((int)System.DateTime.Now.Ticks);
@@ -249,6 +252,7 @@ public class MapGenrator : MonoBehaviour
         savableMapData.height = height;
         foreach (List<Node> nodeList in nodes)
         {
+            List<EssentialNodeData> essentialNodeDatas = new List<EssentialNodeData>();
             foreach (Node node in nodeList)
             {
                 List<Vector2Int> tempChildNodes = new List<Vector2Int>();
@@ -257,10 +261,73 @@ public class MapGenrator : MonoBehaviour
                     tempChildNodes.Add(new Vector2Int(child.X, child.Y));
                 }
                 EssentialNodeData tempNodeData = new EssentialNodeData(node.X, node.Y, node.MapNodeType, tempChildNodes);
-                savableMapData.nodes.Add(tempNodeData);
+                essentialNodeDatas.Add(tempNodeData);
             }
+            savableMapData.nodes.Add(essentialNodeDatas);
         }
         ES3.Save("testtest", savableMapData, Application.persistentDataPath + "/test");
+    }
+
+    public void ImportMap()
+    {
+        savableMapData = new SavableMapData();
+        savableMapData = (SavableMapData)ES3.Load("testtest", Application.persistentDataPath + "/test");
+        nodes.Clear();
+        foreach (List<GameObject> images in nodeImages)
+        {
+            foreach (GameObject image in images)
+            {
+                Destroy(image);
+            }
+        }
+        foreach (GameObject path in pathImages)
+        {
+            Destroy(path);
+        }
+        nodeImages.Clear();
+        float heightScale = Screen.height / (float)savableMapData.height;
+        float startY = heightScale / 2;
+        for (int y = 0; y < savableMapData.nodes.Count; y++)
+        {
+
+            List<Node> currentNodes = new List<Node>();
+            List<GameObject> nodeImagesList = new List<GameObject>();
+            float widthScale = Screen.width / (float)savableMapData.nodes[y].Count;
+            float startX = widthScale / 2;
+            for (int x = 0; x < savableMapData.nodes[y].Count; x++)
+            {
+                Node newNode = new Node(savableMapData.nodes[y][x].x, savableMapData.nodes[y][x].y, savableMapData.nodes[y][x].mapNodeType);
+                currentNodes.Add(newNode);
+                GameObject tempImage = Instantiate(pNodeImage);
+                tempImage.transform.SetParent(this.gameObject.transform);
+                tempImage.transform.position = new Vector2(startX + x * widthScale, startY + y * heightScale);
+                newNode.image = tempImage.GetComponent<Image>();
+                newNode.image.color = DebugNodeColor(newNode.MapNodeType);
+                nodeImagesList.Add(tempImage);
+            }
+            nodeImages.Add(nodeImagesList);
+            nodes.Add(currentNodes);
+        }
+        for (int y = 0; y < savableMapData.nodes.Count; y++)
+        {
+            for (int x = 0; x < savableMapData.nodes[y].Count; x++)
+            {
+                for (int childNum = 0; childNum < savableMapData.nodes[y][x].childNodeXY.Count; childNum++)
+                {
+                    nodes[y][x].childNodes.Add(nodes[savableMapData.nodes[y][x].childNodeXY[childNum].y][savableMapData.nodes[y][x].childNodeXY[childNum].x]);
+                    nodes[savableMapData.nodes[y][x].childNodeXY[childNum].y][savableMapData.nodes[y][x].childNodeXY[childNum].x].isConnected = true;
+                    GameObject line = Instantiate(pLineImage);
+                    pathImages.Add(line);
+                    nodes[y][x].pathImages.Add(line.GetComponent<Image>());
+                    line.transform.SetParent(transform);
+                    line.GetComponent<RectTransform>().sizeDelta = new Vector2(Vector2.Distance(nodeImages[y][x].transform.position, nodeImages[savableMapData.nodes[y][x].childNodeXY[childNum].y][savableMapData.nodes[y][x].childNodeXY[childNum].x].transform.position), 4.5f);
+                    Vector2 tempVector = new Vector2((nodeImages[y][x].transform.position.x + nodeImages[savableMapData.nodes[y][x].childNodeXY[childNum].y][savableMapData.nodes[y][x].childNodeXY[childNum].x].transform.position.x) / 2, (nodeImages[y][x].transform.position.y + nodeImages[savableMapData.nodes[y][x].childNodeXY[childNum].y][savableMapData.nodes[y][x].childNodeXY[childNum].x].transform.position.y) / 2);
+                    line.transform.position = tempVector;
+                    Vector2 dir = nodeImages[y][x].transform.position - nodeImages[savableMapData.nodes[y][x].childNodeXY[childNum].y][savableMapData.nodes[y][x].childNodeXY[childNum].x].transform.position;
+                    line.transform.rotation = Quaternion.FromToRotation(Vector2.right, dir);
+                }
+            }
+        }
     }
 }
 

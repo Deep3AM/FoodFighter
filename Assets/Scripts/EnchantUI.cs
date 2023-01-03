@@ -12,6 +12,7 @@ public class EnchantUI : MonoBehaviour
     [SerializeField] private List<BaseUnitStat> baseUnitStats;
     [SerializeField] private Button pEnchantButton;
     [SerializeField] private Transform enchantContentTransform;
+    [SerializeField] private UnitViewUI unitViewUI;
     private void Awake()
     {
         Init();
@@ -27,7 +28,12 @@ public class EnchantUI : MonoBehaviour
         foreach (BaseUnitStat baseUnitStat in baseUnitStats)
         {
             Button temp = Instantiate(pEnchantButton);
-            temp.onClick.AddListener(() => SetEnchantUI(baseUnitStat));
+            temp.onClick.AddListener(() =>
+            {
+                SetEnchantUI(baseUnitStat);
+                unitViewUI.ShowUI(baseUnitStat);
+            }
+            );
             temp.transform.SetParent(enchantContentTransform, false);
         }
     }
