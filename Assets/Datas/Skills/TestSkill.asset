@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 957e8cd78d84bc1479979d5e43b0e766, type: 3}
   m_Name: TestSkill
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: "\uD14C\uC2A4\uD2B8 \uC2A4\uD0AC"
   explain: 
-  value: 10
   valueExpression: '{0} + 10'
   attackRange: 1

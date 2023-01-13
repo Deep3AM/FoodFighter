@@ -31,12 +31,12 @@ public class Unit : MonoBehaviour
     {
         level = 1;
         unitName = baseUnitStat.UnitName;
-        hpStat = baseUnitStat.BaseHP;
-        attackStat = baseUnitStat.BaseAttack;
-        defenseStat = baseUnitStat.BaseDefense;
-        accuracyStat = baseUnitStat.BaseAccuracy;
-        luckStat = baseUnitStat.BaseLuck;
-        speedStat = baseUnitStat.BaseSpeed;
+        hpStat = baseUnitStat.BaseHardnessLevel;
+        attackStat = baseUnitStat.BaseSpicyLevel;
+        defenseStat = baseUnitStat.BaseSourLevel;
+        accuracyStat = baseUnitStat.BaseSweetLevel;
+        luckStat = baseUnitStat.BaseBitterLevel;
+        speedStat = baseUnitStat.BaseSaltyLevel;
         firstAttack = baseUnitStat.FirstAttack;
         secondAttack = baseUnitStat.SecondAttack;
         thirdAttack = baseUnitStat.ThirdAttack;

@@ -34,6 +34,8 @@ public class EnchantUI : MonoBehaviour
                 unitViewUI.ShowUI(baseUnitStat);
             }
             );
+            //if (!UnitStatManager.Instance.unitDatas[baseUnitStat.UnitName].isEnable)
+            //    temp.interactable = false;
             temp.transform.SetParent(enchantContentTransform, false);
         }
     }
