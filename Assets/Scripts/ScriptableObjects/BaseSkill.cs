@@ -10,10 +10,10 @@ public class BaseSkill : ScriptableObject
     public string AttackName { get { return skillName; } }
     public string Explain { get { return explain; } }
     public int AttackRange { get { return attackRange; } }
-    public int SetValue(int level)
+    public int SetValue(Stat stat)
     {
         int result = 10;
-        ExpressionEvaluator.Evaluate(string.Format(valueExpression, level), out result);
+        //ExpressionEvaluator.Evaluate(string.Format(valueExpression, level), out result);
         return result;
     }
 }

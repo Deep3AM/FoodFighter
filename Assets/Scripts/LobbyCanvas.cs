@@ -8,6 +8,11 @@ public class LobbyCanvas : MonoBehaviour
 
     public void OpenUI(GameObject uiGo)
     {
+        if (uiGo.activeInHierarchy)
+        {
+            uiGo.SetActive(false);
+            return;
+        }
         createUI.SetActive(false);
         enchantUI.SetActive(false);
         adventureUI.SetActive(false);

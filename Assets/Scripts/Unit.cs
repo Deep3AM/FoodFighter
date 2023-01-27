@@ -1,84 +1,129 @@
-using System;
 using UnityEngine;
 
-public class Unit : MonoBehaviour
+[System.Serializable]
+public class Stat
 {
-    public EventHandler onDieEvent;
-    [SerializeField] private BaseUnitStat baseUnitStat;
+    private int hardness;
+    private int sweet;
+    private int sour;
+    private int salty;
+    private int spicy;
+    private float bitter;
+    public int Hardness { get { return hardness; } }
+    public int Sweet { get { return sweet; } }
+    public int Sour { get { return sour; } }
+    public int Salty { get { return salty; } }
+    public int Spicy { get { return spicy; } }
+    public float Bitter { get { return bitter; } }
+
+    public Stat(int _hardness, int _sweet, int _sour, int _salty, int _spicy, int _bitter)
+    {
+        hardness = _hardness;
+        sweet = _sweet;
+        sour = _sour;
+        salty = _salty;
+        spicy = _spicy;
+        bitter = _bitter;
+    }
+
+    public void ChangeStat(string statName, int num)
+    {
+        switch (statName)
+        {
+            case "Hardness":
+                hardness += num;
+                break;
+            case "Sweet":
+                sweet += num;
+                break;
+            case "Sour":
+                sour += num;
+                break;
+            case "Salty":
+                salty += num;
+                break;
+            case "Spicy":
+                spicy += num;
+                break;
+            case "Bitter":
+                bitter += num;
+                break;
+            default:
+                Debug.Log("Invaild Value");
+                break;
+        }
+    }
+
+    public void HPZero()
+    {
+        hardness = 0;
+    }
+}
+[System.Serializable]
+public class Unit
+{
+    public System.EventHandler onDieEvent;
     private string unitName;
-    private int level;
-    [SerializeField] private int hpStat;
-    private int attackStat;
-    private int defenseStat;
-    private int accuracyStat;
-    private int luckStat;
-    private float speedStat;
+    private Stat unitStat;
     private BaseSkill firstAttack;
     private BaseSkill secondAttack;
     private BaseSkill thirdAttack;
     private BaseSkill fourthAttack;
 
     public string UnitName { get { return unitName; } }
-    public int Level { get { return level; } }
-    public int HPStat { get { return hpStat; } }
-    public int AttackStat { get { return attackStat; } }
-    public int DefenseStat { get { return defenseStat; } }
-    public int AccuracyStat { get { return accuracyStat; } }
-    public int LuckStat { get { return luckStat; } }
-    public float SpeedStat { get { return speedStat; } }
+    public Stat UnitStat { get { return unitStat; } }
 
-    public void SetUnitStat()
+
+    public Unit(string _unitName)
     {
-        level = 1;
-        unitName = baseUnitStat.UnitName;
-        hpStat = baseUnitStat.BaseHardnessLevel;
-        attackStat = baseUnitStat.BaseSpicyLevel;
-        defenseStat = baseUnitStat.BaseSourLevel;
-        accuracyStat = baseUnitStat.BaseSweetLevel;
-        luckStat = baseUnitStat.BaseBitterLevel;
-        speedStat = baseUnitStat.BaseSaltyLevel;
-        firstAttack = baseUnitStat.FirstAttack;
-        secondAttack = baseUnitStat.SecondAttack;
-        thirdAttack = baseUnitStat.ThirdAttack;
-        fourthAttack = baseUnitStat.FourthAttack;
+        unitName = _unitName;
+        UnitBaseInformation unitBaseInformation = UnitBaseInformationReader.Instance.UnitBaseInformations[_unitName];
+        unitStat = new Stat(unitBaseInformation.BaseHardness, unitBaseInformation.BaseSweet,
+            unitBaseInformation.BaseSour, unitBaseInformation.BaseSalty, unitBaseInformation.BaseSpicy,
+            unitBaseInformation.BaseBitter);
+
+        //firstAttack = unitBaseInformation.FirstAttack;//after find skill with string
+        //secondAttack = unitBaseInformation.SecondAttack;
+        //thirdAttack = unitBaseInformation.ThirdAttack;
+        //fourthAttack = unitBaseInformation.FourthAttack;
     }
 
     public int Attack(Unit enemy, int attackPhase)
     {
         if (attackPhase == 1)
         {
-            firstAttack.SetValue(level);
-            enemy.Damaged(this, firstAttack.SetValue(level));
-            return firstAttack.SetValue(level);
+            firstAttack.SetValue(UnitStat);
+            enemy.Damaged(this, firstAttack.SetValue(UnitStat));
+            return firstAttack.SetValue(UnitStat);
         }
         else if (attackPhase == 2)
         {
-            secondAttack.SetValue(level);
-            enemy.Damaged(this, secondAttack.SetValue(level));
-            return secondAttack.SetValue(level);
+            secondAttack.SetValue(UnitStat);
+            enemy.Damaged(this, secondAttack.SetValue(UnitStat));
+            return secondAttack.SetValue(UnitStat);
         }
         else if (attackPhase == 3)
         {
-            thirdAttack.SetValue(level);
-            enemy.Damaged(this, thirdAttack.SetValue(level));
-            return thirdAttack.SetValue(level);
+            thirdAttack.SetValue(UnitStat);
+            enemy.Damaged(this, thirdAttack.SetValue(UnitStat));
+            return thirdAttack.SetValue(UnitStat);
         }
         else
         {
-            fourthAttack.SetValue(level);
-            enemy.Damaged(this, fourthAttack.SetValue(level));
-            return fourthAttack.SetValue(level);
+            fourthAttack.SetValue(UnitStat);
+            enemy.Damaged(this, fourthAttack.SetValue(UnitStat));
+            return fourthAttack.SetValue(UnitStat);
         }
 
     }
 
     public void Damaged(Unit enemy, int damage)
     {
-        hpStat -= damage;
-        if (hpStat <= 0)
+        UnitStat.ChangeStat("Hardness", -damage);
+        if (UnitStat.Hardness <= 0)
         {
-            hpStat = 0;
-            onDieEvent?.Invoke(this, EventArgs.Empty);
+            UnitStat.HPZero();
+            onDieEvent?.Invoke(this, System.EventArgs.Empty);
         }
     }
 }

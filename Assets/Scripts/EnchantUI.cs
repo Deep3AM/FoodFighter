@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,10 +6,9 @@ using UnityEngine.UI;
 public class EnchantUI : MonoBehaviour
 {
     private int enchantCost = 1;//after database is created, it will be changed 
-    private BaseUnitStat curBaseUnitStat;
+    private UnitBaseInformation curUnitBaseInformation;
     [SerializeField] private TextMeshProUGUI enchantDescriptionText;
     [SerializeField] private TextMeshProUGUI enchantCostText;
-    [SerializeField] private List<BaseUnitStat> baseUnitStats;
     [SerializeField] private Button pEnchantButton;
     [SerializeField] private Transform enchantContentTransform;
     [SerializeField] private UnitViewUI unitViewUI;
@@ -20,18 +19,18 @@ public class EnchantUI : MonoBehaviour
 
     private void OnEnable()
     {
-        SetEnchantUI(baseUnitStats[0]);
+        SetEnchantUI(UnitBaseInformationReader.Instance.UnitBaseInformations.Values.ToList()[0]);
     }
 
     private void Init()
     {
-        foreach (BaseUnitStat baseUnitStat in baseUnitStats)
+        foreach (var unitInformation in UnitBaseInformationReader.Instance.UnitBaseInformations.Values)
         {
             Button temp = Instantiate(pEnchantButton);
             temp.onClick.AddListener(() =>
             {
-                SetEnchantUI(baseUnitStat);
-                unitViewUI.ShowUI(baseUnitStat);
+                SetEnchantUI(unitInformation);
+                unitViewUI.ShowUI(unitInformation);
             }
             );
             //if (!UnitStatManager.Instance.unitDatas[baseUnitStat.UnitName].isEnable)
@@ -40,15 +39,15 @@ public class EnchantUI : MonoBehaviour
         }
     }
 
-    public void SetEnchantUI(BaseUnitStat baseUnitStat)
+    public void SetEnchantUI(UnitBaseInformation unitBaseInformation)
     {
-        curBaseUnitStat = baseUnitStat;
+        curUnitBaseInformation = unitBaseInformation;
         enchantCostText.text = $"cost: {enchantCost}";
-        enchantDescriptionText.text = $"Name: {curBaseUnitStat.UnitName}\nType: {curBaseUnitStat.Type.ToString()}";
+        enchantDescriptionText.text = $"Name: {curUnitBaseInformation.RecipeName}\nType: {curUnitBaseInformation.Type.ToString()}";
     }
 
     public void Enchant()
     {
-        Debug.Log($"Enchant {curBaseUnitStat.UnitName}!");
+        Debug.Log($"Enchant {curUnitBaseInformation.RecipeName}!");
     }
 }

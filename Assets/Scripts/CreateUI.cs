@@ -1,19 +1,21 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CreateUI : MonoBehaviour
 {
-    private int foodCost1;
-    private int foodCost2;
-    private int foodCost3;
-    private Recipe curRecipe;
+    private UnitBaseInformation curUnitBaseInformation;
     [SerializeField] private TextMeshProUGUI createDescriptionText;
     [SerializeField] private TextMeshProUGUI createCostText;
-    [SerializeField] private List<Recipe> recipes;
     [SerializeField] private Button pRecipeButton;
+    [SerializeField] private Button pIngredientButton;
     [SerializeField] private Transform createContentTransform;
+    [SerializeField] private Transform createIngredientTransform;
+    [SerializeField] private List<Ingredient> curIngredientInformation = new List<Ingredient>();
+    [SerializeField] private Burner burner;
+    private string recipeText;
 
     private void Awake()
     {
@@ -22,32 +24,62 @@ public class CreateUI : MonoBehaviour
 
     private void OnEnable()
     {
-        SetCreatUI(recipes[0]);
+        SetCreatUI(UnitBaseInformationReader.Instance.UnitBaseInformations.Values.ToList()[0]);
     }
 
     private void Init()
     {
-        foreach (Recipe recipe in recipes)
+        foreach (UnitBaseInformation unitBaseInformation in UnitBaseInformationReader.Instance.UnitBaseInformations.Values)
         {
             Button temp = Instantiate(pRecipeButton);
-            temp.onClick.AddListener(() => SetCreatUI(recipe));
+            temp.onClick.AddListener(() => SetCreatUI(unitBaseInformation));
             temp.transform.SetParent(createContentTransform, false);
         }
     }
 
-    public void SetCreatUI(Recipe recipe)
+    public void SetCreatUI(UnitBaseInformation unitBaseInformation)
     {
-        curRecipe = recipe;
-        foodCost1 = curRecipe.FoodCost1;
-        foodCost2 = curRecipe.FoodCost2;
-        foodCost3 = curRecipe.FoodCost3;
-        createCostText.text = $"1: {foodCost1}\n2: {foodCost2}\n3: {foodCost3}";
-        createDescriptionText.text = $"Name: {curRecipe.RecipeName}\nType: {curRecipe.Type.ToString()}\n{curRecipe.RecipeDescription}";
+        foreach (Transform child in createIngredientTransform)
+        {
+            Debug.Log(child);
+            Destroy(child.gameObject);
+        }
+        curIngredientInformation.Clear();
+        curUnitBaseInformation = unitBaseInformation;
+        string temp = "";
+        foreach (Ingredient ingredient in unitBaseInformation.IngredinetInformation)
+        {
+            temp += ingredient.ingredientName + ": " + ingredient.num.ToString() + "\n";
+            if (ingredient.ingredientName.Contains("BaseTier"))
+            {
+                int tier = int.Parse(ingredient.ingredientName[8].ToString());
+                foreach (var unit in UnitBaseInformationReader.Instance.UnitBaseInformations.Values)
+                {
+                    if (unit.BaseTier == tier)
+                    {
+                        Button tierIngredientTemp = Instantiate(pIngredientButton, createIngredientTransform);
+                        tierIngredientTemp.GetComponentInChildren<TextMeshProUGUI>().text = unit.RecipeName + ": "
+                            + UserData.Instance.IngredientDatas[unit.RecipeName].ToString();
+                    }
+                }
+                continue;
+            }
+            Button ingredientTemp = Instantiate(pIngredientButton, createIngredientTransform);
+            ingredientTemp.GetComponentInChildren<TextMeshProUGUI>().text = ingredient.ingredientName + ": "
+                + UserData.Instance.IngredientDatas[ingredient.ingredientName].ToString();
+            curIngredientInformation.Add(ingredient);
+        }
+        createCostText.text = temp;
     }
 
     public void Create()
     {
-        Debug.Log($"1: {foodCost1}\n2: {foodCost2}\n3: {foodCost3}\nCreate {curRecipe.RecipeName}");
+        foreach (var ingredient in curIngredientInformation)
+        {
+            UserData.Instance.SetIngredientNum(ingredient.ingredientName, -ingredient.num);
+        }
+        UserData.Instance.SetIngredientNum(curUnitBaseInformation.RecipeName, 1);
+        burner.gameObject.SetActive(true);
     }
 
 

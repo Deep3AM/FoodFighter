@@ -10,7 +10,7 @@ public class UnitUI : MonoBehaviour
     public void SetUnitUI(Unit unit)
     {
         unitName.text = unit.UnitName;
-        hp.text = unit.HPStat.ToString();
+        hp.text = unit.UnitStat.Hardness.ToString();
     }
 
     public IEnumerator TakeDamage(int damage)

@@ -7,9 +7,9 @@ using Random = UnityEngine.Random;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    [SerializeField] private List<Unit> units = new List<Unit>();
-    [SerializeField] private List<Unit> home = new List<Unit>();
-    [SerializeField] private List<Unit> away = new List<Unit>();
+    private List<Unit> units = new List<Unit>();
+    private List<Unit> home = new List<Unit>();
+    private List<Unit> away = new List<Unit>();
     public ConcurrentDictionary<Unit, UnitUI> unitAndUnitUI = new ConcurrentDictionary<Unit, UnitUI>();
     private UnitCanvas unitCanvas = null;
     private List<IEnumerator> turnSimulator = new List<IEnumerator>();
@@ -20,13 +20,11 @@ public class UnitManager : Singleton<UnitManager>
         unitCanvas = FindObjectOfType<UnitCanvas>();
         foreach (Unit h in home)
         {
-            h.SetUnitStat();
             units.Add(h);
             h.onDieEvent += OnDieEvent;
         }
         foreach (Unit a in away)
         {
-            a.SetUnitStat();
             units.Add(a);
             a.onDieEvent += OnDieEvent;
         }
@@ -37,7 +35,7 @@ public class UnitManager : Singleton<UnitManager>
     {
         unitCanvas.SetPhaseDebugText(attackPhase);
         turnSimulator.Clear();
-        units.Sort((Unit x, Unit y) => x.SpeedStat.CompareTo(y.SpeedStat));
+        units.Sort((Unit x, Unit y) => x.UnitStat.Bitter.CompareTo(y.UnitStat.Bitter));
         Random.InitState((int)DateTime.Now.Ticks);
         for (int i = 0; i < units.Count; i++)
         {

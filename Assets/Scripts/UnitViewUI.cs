@@ -9,93 +9,93 @@ public class UnitViewUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] statLevelTexts = new TextMeshProUGUI[6];
     [SerializeField] private Button[] plusButton = new Button[6];
     [SerializeField] private Button[] minusButton = new Button[6];
-    public void ShowUI(BaseUnitStat baseUnitStat)
+    public void ShowUI(UnitBaseInformation unitBaseInformation)
     {
         gameObject.SetActive(true);
         unitDescriptionText.text =
-            baseUnitStat.UnitName + "\n" +
-            baseUnitStat.Type.ToString() + "\n" +
-            baseUnitStat.BaseHardnessLevel.ToString() + "\n" +
-            baseUnitStat.BaseSpicyLevel.ToString() + "\n" +
-            baseUnitStat.BaseSourLevel.ToString() + "\n" +
-            baseUnitStat.BaseSweetLevel.ToString() + "\n" +
-            baseUnitStat.BaseBitterLevel.ToString() + "\n" +
-            baseUnitStat.BaseSaltyLevel.ToString() + "\n";
-        skillTexts[0].text = baseUnitStat.FirstAttack.AttackName;
-        skillTexts[1].text = baseUnitStat.SecondAttack.AttackName;
-        skillTexts[2].text = baseUnitStat.ThirdAttack.AttackName;
-        skillTexts[3].text = baseUnitStat.FourthAttack.AttackName;
-        ShowLevel(baseUnitStat.UnitName);
+            unitBaseInformation.RecipeName + "\n" +
+            unitBaseInformation.Type.ToString() + "\n" +
+            unitBaseInformation.BaseHardness.ToString() + "\n" +
+            unitBaseInformation.BaseSpicy.ToString() + "\n" +
+            unitBaseInformation.BaseSour.ToString() + "\n" +
+            unitBaseInformation.BaseSweet.ToString() + "\n" +
+            unitBaseInformation.BaseBitter.ToString() + "\n" +
+            unitBaseInformation.BaseSalty.ToString() + "\n";
+        skillTexts[0].text = unitBaseInformation.FirstAttack;
+        skillTexts[1].text = unitBaseInformation.SecondAttack;
+        skillTexts[2].text = unitBaseInformation.ThirdAttack;
+        skillTexts[3].text = unitBaseInformation.FourthAttack;
+        ShowLevel(unitBaseInformation.RecipeName);
         plusButton[0].onClick.AddListener(() =>
         {
-            UnitStatManager.Instance.SetStat(baseUnitStat.UnitName, "Hardness", 1);
-            ShowLevel(baseUnitStat.UnitName);
+            UserData.Instance.SetStat(unitBaseInformation.RecipeName, "Hardness", 1);
+            ShowLevel(unitBaseInformation.RecipeName);
         });
         plusButton[1].onClick.AddListener(() =>
         {
-            UnitStatManager.Instance.SetStat(baseUnitStat.UnitName, "Spicy", 1);
-            ShowLevel(baseUnitStat.UnitName);
+            UserData.Instance.SetStat(unitBaseInformation.RecipeName, "Spicy", 1);
+            ShowLevel(unitBaseInformation.RecipeName);
         });
         plusButton[2].onClick.AddListener(() =>
         {
-            UnitStatManager.Instance.SetStat(baseUnitStat.UnitName, "Sour", 1);
-            ShowLevel(baseUnitStat.UnitName);
+            UserData.Instance.SetStat(unitBaseInformation.RecipeName, "Sour", 1);
+            ShowLevel(unitBaseInformation.RecipeName);
         });
         plusButton[3].onClick.AddListener(() =>
         {
-            UnitStatManager.Instance.SetStat(baseUnitStat.UnitName, "Sweet", 1);
-            ShowLevel(baseUnitStat.UnitName);
+            UserData.Instance.SetStat(unitBaseInformation.RecipeName, "Sweet", 1);
+            ShowLevel(unitBaseInformation.RecipeName);
         });
         plusButton[4].onClick.AddListener(() =>
         {
-            UnitStatManager.Instance.SetStat(baseUnitStat.UnitName, "Salty", 1);
-            ShowLevel(baseUnitStat.UnitName);
+            UserData.Instance.SetStat(unitBaseInformation.RecipeName, "Salty", 1);
+            ShowLevel(unitBaseInformation.RecipeName);
         });
         plusButton[5].onClick.AddListener(() =>
         {
-            UnitStatManager.Instance.SetStat(baseUnitStat.UnitName, "Bitter", 1);
-            ShowLevel(baseUnitStat.UnitName);
+            UserData.Instance.SetStat(unitBaseInformation.RecipeName, "Bitter", 1);
+            ShowLevel(unitBaseInformation.RecipeName);
         });
 
         minusButton[0].onClick.AddListener(() =>
         {
-            UnitStatManager.Instance.SetStat(baseUnitStat.UnitName, "Hardness", -1);
-            ShowLevel(baseUnitStat.UnitName);
+            UserData.Instance.SetStat(unitBaseInformation.RecipeName, "Hardness", -1);
+            ShowLevel(unitBaseInformation.RecipeName);
         });
         minusButton[1].onClick.AddListener(() =>
         {
-            UnitStatManager.Instance.SetStat(baseUnitStat.UnitName, "Spicy", -1);
-            ShowLevel(baseUnitStat.UnitName);
+            UserData.Instance.SetStat(unitBaseInformation.RecipeName, "Spicy", -1);
+            ShowLevel(unitBaseInformation.RecipeName);
         });
         minusButton[2].onClick.AddListener(() =>
         {
-            UnitStatManager.Instance.SetStat(baseUnitStat.UnitName, "Sour", -1);
-            ShowLevel(baseUnitStat.UnitName);
+            UserData.Instance.SetStat(unitBaseInformation.RecipeName, "Sour", -1);
+            ShowLevel(unitBaseInformation.RecipeName);
         });
         minusButton[3].onClick.AddListener(() =>
         {
-            UnitStatManager.Instance.SetStat(baseUnitStat.UnitName, "Sweet", -1);
-            ShowLevel(baseUnitStat.UnitName);
+            UserData.Instance.SetStat(unitBaseInformation.RecipeName, "Sweet", -1);
+            ShowLevel(unitBaseInformation.RecipeName);
         });
         minusButton[4].onClick.AddListener(() =>
         {
-            UnitStatManager.Instance.SetStat(baseUnitStat.UnitName, "Salty", -1);
-            ShowLevel(baseUnitStat.UnitName);
+            UserData.Instance.SetStat(unitBaseInformation.RecipeName, "Salty", -1);
+            ShowLevel(unitBaseInformation.RecipeName);
         });
         minusButton[5].onClick.AddListener(() =>
         {
-            UnitStatManager.Instance.SetStat(baseUnitStat.UnitName, "Bitter", -1);
-            ShowLevel(baseUnitStat.UnitName);
+            UserData.Instance.SetStat(unitBaseInformation.RecipeName, "Bitter", -1);
+            ShowLevel(unitBaseInformation.RecipeName);
         });
     }
 
     private void ShowLevel(string unitName)
     {
-        statLevelTexts[0].text = "hardness level: " + UnitStatManager.Instance.unitDatas[unitName].hardnessLevel.ToString();
-        statLevelTexts[1].text = "spicy level: " + UnitStatManager.Instance.unitDatas[unitName].spicyLevel.ToString();
-        statLevelTexts[2].text = "sour level: " + UnitStatManager.Instance.unitDatas[unitName].sourLevel.ToString();
-        statLevelTexts[3].text = "sweet level: " + UnitStatManager.Instance.unitDatas[unitName].sweetLevel.ToString();
-        statLevelTexts[4].text = "salty level: " + UnitStatManager.Instance.unitDatas[unitName].saltyLevel.ToString();
-        statLevelTexts[5].text = "bitter level: " + UnitStatManager.Instance.unitDatas[unitName].bitterLevel.ToString();
+        statLevelTexts[0].text = "hardness level: " + UserData.Instance.UnitDatas[unitName].hardnessLevel.ToString();
+        statLevelTexts[1].text = "spicy level: " + UserData.Instance.UnitDatas[unitName].spicyLevel.ToString();
+        statLevelTexts[2].text = "sour level: " + UserData.Instance.UnitDatas[unitName].sourLevel.ToString();
+        statLevelTexts[3].text = "sweet level: " + UserData.Instance.UnitDatas[unitName].sweetLevel.ToString();
+        statLevelTexts[4].text = "salty level: " + UserData.Instance.UnitDatas[unitName].saltyLevel.ToString();
+        statLevelTexts[5].text = "bitter level: " + UserData.Instance.UnitDatas[unitName].bitterLevel.ToString();
     }
 }
