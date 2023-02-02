@@ -1,54 +1,54 @@
-RecipeName,Type,BaseHardness,BaseSpicy,BaseSweet,BaseSour,BaseSalty,BaseBitter,BaseTier,FirstAttack,SecondAttack,ThirdAttack,FourthAttack,IngredientInformation
-Rice,None,0,0,0,0,0,0,0,None,None,None,None,
-Water,None,0,0,0,0,0,0,0,None,None,None,None,
-Seasoning,None,0,0,0,0,0,0,0,None,None,None,None,
-Vegetable,None,0,0,0,0,0,0,0,None,None,None,None,
-Butter,None,0,0,0,0,0,0,0,None,None,None,None,
-Seafood,None,0,0,0,0,0,0,0,None,None,None,None,
-Sauce,None,0,0,0,0,0,0,0,None,None,None,None,
-Spice,None,0,0,0,0,0,0,0,None,None,None,None,
-Flour,None,0,0,0,0,0,0,0,None,None,None,None,
-Meat,None,0,0,0,0,0,0,0,None,None,None,None,
-Oil,None,0,0,0,0,0,0,0,None,None,None,None,
-Yeast,None,0,0,0,0,0,0,0,None,None,None,None,
-Sugar,None,0,0,0,0,0,0,0,None,None,None,None,
-Fruit,None,0,0,0,0,0,0,0,None,None,None,None,
-Cheese,None,0,0,0,0,0,0,0,None,None,None,None,
-Salt,None,0,0,0,0,0,0,0,None,None,None,None,
-Cooked Rice,Rice,0,0,0,0,0,0,1,None,None,None,None,Rice|1+Water|1
-Nurungii,Rice,0,0,0,0,0,0,1,None,None,None,None,Rice|1+Water|1
-White Porridge,Rice,0,0,0,0,0,0,1,None,None,None,None,Rice|1+Water|2
-Kimchi Fried Rice,Rice,0,0,0,0,0,0,2,None,None,None,None,Cooked Rice|1+Seasoning|1+Vegetable|1
-Risotto,Rice,0,0,0,0,0,0,2,None,None,None,None,Cooked Rice|1+Butter|1+Seafood|1
-Abalone Porridge,Rice,0,0,0,0,0,0,2,None,None,None,None,White Porridge|1+Seafood|1
-Unadon,Rice,0,0,0,0,0,0,3,None,None,None,None,Cooked Rice|1+Vegetable|1+Sauce|1
-Curry Rice,Rice,0,0,0,0,0,0,3,None,None,None,None,Cooked Rice|1+Vegetable|1+Spice|1
-Sushi,Rice,0,0,0,0,0,0,3,None,None,None,None,Cooked Rice|1+Seafood|2
-Plain Noodles,Noodle,0,0,0,0,0,0,1,None,None,None,None,Flour|1+Water|1
-Spicy Noodles,Noodle,0,0,0,0,0,0,2,None,None,None,None,Plain Noodles|1+Seasoning|1
-Banquet Noodles,Noodle,0,0,0,0,0,0,2,None,None,None,None,Plain Noodles|1+Meat|1+Water|1
-Ramen,Noodle,0,0,0,0,0,0,2,None,None,None,None,Plain Noodles|1+Oil|1
-Pasta,Noodle,0,0,0,0,0,0,2,None,None,None,None,Plain Noodles|1+Sauce|1
-Rice Noodles,Noodle,0,0,0,0,0,0,2,None,None,None,None,Plain Noodles|1+Rice|1+Water|1
-Pad Thai ,Noodle,0,0,0,0,0,0,3,None,None,None,None,Rice Noodles|1+Vegetable|1
-Spatzle,Noodle,0,0,0,0,0,0,3,None,None,None,None,Plain Noodles|1+Butter|1+Sauce|1
-Pain,Bread,0,0,0,0,0,0,1,None,None,None,None,Flour|1+Yeast|1
-Campagne ,Bread,0,0,0,0,0,0,2,None,None,None,None,Flour|1+Yeast|2
-Garlic Bread,Bread,0,0,0,0,0,0,2,None,None,None,None,Pain|1+Vegetable|1
-Donut,Bread,0,0,0,0,0,0,2,None,None,None,None,Pain|1+Sugar|1
-Melon Bread,Bread,0,0,0,0,0,0,3,None,None,None,None,Pain|1+Fruit|1
-Pancake,Bread,0,0,0,0,0,0,3,None,None,None,None,Pain|1+Sugar|1+Sauce|1
-Cheesecake,Bread,0,0,0,0,0,0,3,None,None,None,None,Pain|1+Cheese|2
-Croissant,Bread,0,0,0,0,0,0,3,None,None,None,None,Pain|1+Butter|2
-Grilled Meat,Meat,0,0,0,0,0,0,1,None,None,None,None,Meat|1
-Pork Cutlet,Meat,0,0,0,0,0,0,2,None,None,None,None,Grilled Meat|1+Oil|1
-Fried Chicken,Meat,0,0,0,0,0,0,2,None,None,None,None,Grilled Meat|1+Oil|1+Salt|1
-Seasoned Chicken,Meat,0,0,0,0,0,0,2,None,None,None,None,Grilled Meat|1+Oil|1+Sauce|1
-Pork With Korean Herbs,Meat,0,0,0,0,0,0,2,None,None,None,None,Grilled Meat|1+Sauce|1
-Bulgogi ,Meat,0,0,0,0,0,0,3,None,None,None,None,Grilled Meat|1+Sauce|2
-Steak,Meat,0,0,0,0,0,0,3,None,None,None,None,Grilled Meat|2+Salt|1+Butter|1
-Nurungji Cream Pasta,Rice|Noodle,0,0,0,0,0,0,4,None,None,None,None,Nurungii|2+Pasta|1+Seafood|1
-Tonkotsu Ramen,Noodle|Meat,0,0,0,0,0,0,4,None,None,None,None,Pork Cutlet|1+Ramen|1+Salt|1+Sauce|1
-Beef Sushi,Rice|Meat,0,0,0,0,0,0,4,None,None,None,None,Grilled Meat|1+Sushi|1+Sauce|1
-Pane Pasta,Noodle|Bread,0,0,0,0,0,0,4,None,None,None,None,Pain|2+Pasta|2
-Manchu–Han Imperial Feast,Rice|Noodle|Bread|Meat,0,0,0,0,0,0,5,None,None,None,None,BaseTier3|5
+RecipeName,Type,BaseHardness,BaseSpicy,BaseSweet,BaseSour,BaseSalty,BaseBitter,BaseTier,FirstAttack,SecondAttack,ThirdAttack,FourthAttack,IngredientInformation,AutoPickTime
+Rice,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Water,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Seasoning,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Vegetable,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Butter,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Seafood,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Sauce,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Spice,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Flour,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Meat,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Oil,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Yeast,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Sugar,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Fruit,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Cheese,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Salt,None,0,0,0,0,0,0,0,None,None,None,None,,10
+Cooked Rice,Rice,0,0,0,0,0,0,1,None,None,None,None,Rice|1+Water|1,0
+Nurungii,Rice,0,0,0,0,0,0,1,None,None,None,None,Rice|1+Water|1,0
+White Porridge,Rice,0,0,0,0,0,0,1,None,None,None,None,Rice|1+Water|2,0
+Kimchi Fried Rice,Rice,0,0,0,0,0,0,2,None,None,None,None,Cooked Rice|1+Seasoning|1+Vegetable|1,0
+Risotto,Rice,0,0,0,0,0,0,2,None,None,None,None,Cooked Rice|1+Butter|1+Seafood|1,0
+Abalone Porridge,Rice,0,0,0,0,0,0,2,None,None,None,None,White Porridge|1+Seafood|1,0
+Unadon,Rice,0,0,0,0,0,0,3,None,None,None,None,Cooked Rice|1+Vegetable|1+Sauce|1,0
+Curry Rice,Rice,0,0,0,0,0,0,3,None,None,None,None,Cooked Rice|1+Vegetable|1+Spice|1,0
+Sushi,Rice,0,0,0,0,0,0,3,None,None,None,None,Cooked Rice|1+Seafood|2,0
+Plain Noodles,Noodle,0,0,0,0,0,0,1,None,None,None,None,Flour|1+Water|1,0
+Spicy Noodles,Noodle,0,0,0,0,0,0,2,None,None,None,None,Plain Noodles|1+Seasoning|1,0
+Banquet Noodles,Noodle,0,0,0,0,0,0,2,None,None,None,None,Plain Noodles|1+Meat|1+Water|1,0
+Ramen,Noodle,0,0,0,0,0,0,2,None,None,None,None,Plain Noodles|1+Oil|1,0
+Pasta,Noodle,0,0,0,0,0,0,2,None,None,None,None,Plain Noodles|1+Sauce|1,0
+Rice Noodles,Noodle,0,0,0,0,0,0,2,None,None,None,None,Plain Noodles|1+Rice|1+Water|1,0
+Pad Thai ,Noodle,0,0,0,0,0,0,3,None,None,None,None,Rice Noodles|1+Vegetable|1,0
+Spatzle,Noodle,0,0,0,0,0,0,3,None,None,None,None,Plain Noodles|1+Butter|1+Sauce|1,0
+Pain,Bread,0,0,0,0,0,0,1,None,None,None,None,Flour|1+Yeast|1,0
+Campagne ,Bread,0,0,0,0,0,0,2,None,None,None,None,Flour|1+Yeast|2,0
+Garlic Bread,Bread,0,0,0,0,0,0,2,None,None,None,None,Pain|1+Vegetable|1,0
+Donut,Bread,0,0,0,0,0,0,2,None,None,None,None,Pain|1+Sugar|1,0
+Melon Bread,Bread,0,0,0,0,0,0,3,None,None,None,None,Pain|1+Fruit|1,0
+Pancake,Bread,0,0,0,0,0,0,3,None,None,None,None,Pain|1+Sugar|1+Sauce|1,0
+Cheesecake,Bread,0,0,0,0,0,0,3,None,None,None,None,Pain|1+Cheese|2,0
+Croissant,Bread,0,0,0,0,0,0,3,None,None,None,None,Pain|1+Butter|2,0
+Grilled Meat,Meat,0,0,0,0,0,0,1,None,None,None,None,Meat|1,0
+Pork Cutlet,Meat,0,0,0,0,0,0,2,None,None,None,None,Grilled Meat|1+Oil|1,0
+Fried Chicken,Meat,0,0,0,0,0,0,2,None,None,None,None,Grilled Meat|1+Oil|1+Salt|1,0
+Seasoned Chicken,Meat,0,0,0,0,0,0,2,None,None,None,None,Grilled Meat|1+Oil|1+Sauce|1,0
+Pork With Korean Herbs,Meat,0,0,0,0,0,0,2,None,None,None,None,Grilled Meat|1+Sauce|1,0
+Bulgogi ,Meat,0,0,0,0,0,0,3,None,None,None,None,Grilled Meat|1+Sauce|2,0
+Steak,Meat,0,0,0,0,0,0,3,None,None,None,None,Grilled Meat|2+Salt|1+Butter|1,0
+Nurungji Cream Pasta,Rice|Noodle,0,0,0,0,0,0,4,None,None,None,None,Nurungii|2+Pasta|1+Seafood|1,0
+Tonkotsu Ramen,Noodle|Meat,0,0,0,0,0,0,4,None,None,None,None,Pork Cutlet|1+Ramen|1+Salt|1+Sauce|1,0
+Beef Sushi,Rice|Meat,0,0,0,0,0,0,4,None,None,None,None,Grilled Meat|1+Sushi|1+Sauce|1,0
+Pane Pasta,Noodle|Bread,0,0,0,0,0,0,4,None,None,None,None,Pain|2+Pasta|2,0
+Manchu–Han Imperial Feast,Rice|Noodle|Bread|Meat,0,0,0,0,0,0,5,None,None,None,None,BaseTier3|5,0

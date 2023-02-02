@@ -19,12 +19,12 @@ public class EnchantUI : MonoBehaviour
 
     private void OnEnable()
     {
-        SetEnchantUI(UnitBaseInformationReader.Instance.UnitBaseInformations.Values.ToList()[0]);
+        SetEnchantUI(BaseInformationReader.Instance.UnitBaseInformations.Values.ToList()[0]);
     }
 
     private void Init()
     {
-        foreach (var unitInformation in UnitBaseInformationReader.Instance.UnitBaseInformations.Values)
+        foreach (var unitInformation in BaseInformationReader.Instance.UnitBaseInformations.Values)
         {
             Button temp = Instantiate(pEnchantButton);
             temp.onClick.AddListener(() =>

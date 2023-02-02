@@ -77,7 +77,7 @@ public class Unit
     public Unit(string _unitName)
     {
         unitName = _unitName;
-        UnitBaseInformation unitBaseInformation = UnitBaseInformationReader.Instance.UnitBaseInformations[_unitName];
+        UnitBaseInformation unitBaseInformation = BaseInformationReader.Instance.UnitBaseInformations[_unitName];
         unitStat = new Stat(unitBaseInformation.BaseHardness, unitBaseInformation.BaseSweet,
             unitBaseInformation.BaseSour, unitBaseInformation.BaseSalty, unitBaseInformation.BaseSpicy,
             unitBaseInformation.BaseBitter);

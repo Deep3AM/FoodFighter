@@ -29,19 +29,25 @@ public class UserData : SingletonWithoutMonobehaviour<UserData>
     private Dictionary<string, UnitData> unitDatas;
     private Dictionary<string, int> ingredientDatas;
     private List<string> battleUnits;
+    private List<string> autoPickObjects;
     public Dictionary<string, UnitData> UnitDatas { get { return unitDatas; } }
     public Dictionary<string, int> IngredientDatas { get { return ingredientDatas; } }
     public List<string> BattleUnits { get { return battleUnits; } }
+    public List<string> AutoPickObjects { get { return autoPickObjects; } }
     public void LoadAll()
     {
         LoadUnitDatas();
         LoadIngredientDatas();
+        LoadAutoPickObjects();
+        LoadBattleUnits();
     }
 
     public void SaveAll()
     {
         SaveUnitDatas();
         SaveIngredientDatas();
+        SaveBattleUnits();
+        SaveAutoPickObjects();
     }
 
     public void SaveUnitDatas()
@@ -53,7 +59,7 @@ public class UserData : SingletonWithoutMonobehaviour<UserData>
     public void LoadUnitDatas()
     {
         unitDatas = new Dictionary<string, UnitData>();
-        foreach (var temp in UnitBaseInformationReader.Instance.UnitBaseInformations.Values)
+        foreach (var temp in BaseInformationReader.Instance.UnitBaseInformations.Values)
         {
             unitDatas.Add(temp.RecipeName, new UnitData());
         }
@@ -72,7 +78,7 @@ public class UserData : SingletonWithoutMonobehaviour<UserData>
     public void LoadIngredientDatas()
     {
         ingredientDatas = new Dictionary<string, int>();
-        foreach (var temp in UnitBaseInformationReader.Instance.RecipeNames)
+        foreach (var temp in BaseInformationReader.Instance.RecipeNames)
         {
             ingredientDatas.Add(temp, 0);
         }
@@ -99,6 +105,22 @@ public class UserData : SingletonWithoutMonobehaviour<UserData>
         foreach (var unit in loadedBattleUnits)
         {
             battleUnits.Add(unit);
+        }
+    }
+
+    public void SaveAutoPickObjects()
+    {
+        ES3.Save("AutoPickObjects", autoPickObjects);
+    }
+
+    public void LoadAutoPickObjects()
+    {
+        autoPickObjects = new List<string>();
+        List<string> loadedAutoPickObjects = ES3.Load("AutoPickObjects", new List<string>());
+        foreach (var autoPickObject in loadedAutoPickObjects)
+        {
+            autoPickObjects.Add(autoPickObject);
+            Debug.Log(autoPickObject);
         }
     }
 
@@ -140,5 +162,41 @@ public class UserData : SingletonWithoutMonobehaviour<UserData>
     {
         ingredientDatas[ingredinetName] += ingredientNum;
         SaveIngredientDatas();
+    }
+
+    public void AddAutoPickObject(string _autoPickObject)
+    {
+        if (!autoPickObjects.Contains(_autoPickObject))
+        {
+            autoPickObjects.Add(_autoPickObject);
+            SaveAutoPickObjects();
+        }
+    }
+
+    public void RemoveAutoPickObject(string _autoPickObject)
+    {
+        if (autoPickObjects.Contains(_autoPickObject))
+        {
+            autoPickObjects.Remove(_autoPickObject);
+            SaveAutoPickObjects();
+        }
+    }
+
+    public void AddBattleUnit(string _battleUnit)
+    {
+        if (!battleUnits.Contains(_battleUnit))
+        {
+            battleUnits.Add(_battleUnit);
+            SaveBattleUnits();
+        }
+    }
+
+    public void RemoveBattleUnit(string _battleUnit)
+    {
+        if (battleUnits.Contains(_battleUnit))
+        {
+            battleUnits.Remove(_battleUnit);
+            SaveBattleUnits();
+        }
     }
 }

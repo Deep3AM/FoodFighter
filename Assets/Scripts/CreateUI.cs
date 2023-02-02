@@ -24,12 +24,12 @@ public class CreateUI : MonoBehaviour
 
     private void OnEnable()
     {
-        SetCreatUI(UnitBaseInformationReader.Instance.UnitBaseInformations.Values.ToList()[0]);
+        SetCreatUI(BaseInformationReader.Instance.UnitBaseInformations.Values.ToList()[0]);
     }
 
     private void Init()
     {
-        foreach (UnitBaseInformation unitBaseInformation in UnitBaseInformationReader.Instance.UnitBaseInformations.Values)
+        foreach (UnitBaseInformation unitBaseInformation in BaseInformationReader.Instance.UnitBaseInformations.Values)
         {
             Button temp = Instantiate(pRecipeButton);
             temp.onClick.AddListener(() => SetCreatUI(unitBaseInformation));
@@ -41,7 +41,6 @@ public class CreateUI : MonoBehaviour
     {
         foreach (Transform child in createIngredientTransform)
         {
-            Debug.Log(child);
             Destroy(child.gameObject);
         }
         curIngredientInformation.Clear();
@@ -53,7 +52,7 @@ public class CreateUI : MonoBehaviour
             if (ingredient.ingredientName.Contains("BaseTier"))
             {
                 int tier = int.Parse(ingredient.ingredientName[8].ToString());
-                foreach (var unit in UnitBaseInformationReader.Instance.UnitBaseInformations.Values)
+                foreach (var unit in BaseInformationReader.Instance.UnitBaseInformations.Values)
                 {
                     if (unit.BaseTier == tier)
                     {
