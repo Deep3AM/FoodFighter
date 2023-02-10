@@ -1,0 +1,2 @@
+RecipeName,Type,BaseHardness,BaseSpicy,BaseSweet,BaseSour,BaseSalty,BaseBitter,BaseTier,FirstAttack,SecondAttack,ThirdAttack,FourthAttack
+TestEnemy,Meat,50,10,10,10,10,10,10,TestSkill,TestSkill,TestSkill,TestSkill

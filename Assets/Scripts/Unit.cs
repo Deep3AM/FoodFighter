@@ -73,19 +73,39 @@ public class Unit
     public string UnitName { get { return unitName; } }
     public Stat UnitStat { get { return unitStat; } }
 
+    public Unit(string enemyName, string mapInformation)
+    {
+        unitName = enemyName;
+        UnitBaseInformation unitBaseInformation = BaseInformationReader.Instance.EnemyUnitBaseInformations[enemyName];
+        unitStat = new Stat(unitBaseInformation.BaseHardness,
+    unitBaseInformation.BaseSweet,
+    unitBaseInformation.BaseSour,
+    unitBaseInformation.BaseSalty,
+    unitBaseInformation.BaseSpicy,
+    unitBaseInformation.BaseBitter);
+
+        firstAttack = (BaseSkill)Resources.Load("Skills" + "/" + unitBaseInformation.FirstAttack);
+        secondAttack = (BaseSkill)Resources.Load("Skills" + "/" + unitBaseInformation.SecondAttack); ;
+        thirdAttack = (BaseSkill)Resources.Load("Skills" + "/" + unitBaseInformation.ThirdAttack);
+        fourthAttack = (BaseSkill)Resources.Load("Skills" + "/" + unitBaseInformation.FourthAttack);
+    }
 
     public Unit(string _unitName)
     {
         unitName = _unitName;
         UnitBaseInformation unitBaseInformation = BaseInformationReader.Instance.UnitBaseInformations[_unitName];
-        unitStat = new Stat(unitBaseInformation.BaseHardness, unitBaseInformation.BaseSweet,
-            unitBaseInformation.BaseSour, unitBaseInformation.BaseSalty, unitBaseInformation.BaseSpicy,
-            unitBaseInformation.BaseBitter);
+        UnitData unitData = UserData.Instance.UnitDatas[unitName];
+        unitStat = new Stat(unitBaseInformation.BaseHardness + unitData.hardnessLevel,
+            unitBaseInformation.BaseSweet + unitData.sweetLevel,
+            unitBaseInformation.BaseSour + unitData.sourLevel,
+            unitBaseInformation.BaseSalty + unitData.saltyLevel,
+            unitBaseInformation.BaseSpicy + unitData.spicyLevel,
+            unitBaseInformation.BaseBitter + unitData.bitterLevel);
 
-        //firstAttack = unitBaseInformation.FirstAttack;//after find skill with string
-        //secondAttack = unitBaseInformation.SecondAttack;
-        //thirdAttack = unitBaseInformation.ThirdAttack;
-        //fourthAttack = unitBaseInformation.FourthAttack;
+        firstAttack = (BaseSkill)Resources.Load("Skills" + "/" + unitBaseInformation.FirstAttack);
+        secondAttack = (BaseSkill)Resources.Load("Skills" + "/" + unitBaseInformation.SecondAttack); ;
+        thirdAttack = (BaseSkill)Resources.Load("Skills" + "/" + unitBaseInformation.ThirdAttack);
+        fourthAttack = (BaseSkill)Resources.Load("Skills" + "/" + unitBaseInformation.FourthAttack);
     }
 
     public int Attack(Unit enemy, int attackPhase)

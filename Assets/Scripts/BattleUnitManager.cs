@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class UnitManager : Singleton<UnitManager>
+public class BattleUnitManager : Singleton<BattleUnitManager>
 {
     private List<Unit> units = new List<Unit>();
     private List<Unit> home = new List<Unit>();
@@ -15,6 +15,20 @@ public class UnitManager : Singleton<UnitManager>
     private List<IEnumerator> turnSimulator = new List<IEnumerator>();
     private bool isEndedBeforeEndPhase = false;
 
+    public void InitBattleUnits()
+    {
+        foreach (string unitName in UserData.Instance.BattleUnits)
+        {
+            home.Add(new Unit(unitName));
+        }
+    }
+    public void InitEnemy()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            away.Add(new Unit("TestEnemy", "dfdfdf"));
+        }
+    }
     public void SetBattle()
     {
         unitCanvas = FindObjectOfType<UnitCanvas>();

@@ -87,14 +87,39 @@ public class UnitBaseInformation
             ingredientInformation.Add(temp);
         }
     }
+
+    public UnitBaseInformation(string _recipeName, string _type, int _baseHardness, int _baseSweet, int _baseSour,
+    int _baseSalty, int _baseBitter, int _baseTier, string _firstAttack,
+    string _secondAttack, string _thirdAttack, string _fourthAttack)
+    {
+        recipeName = _recipeName;
+        if (_type.Contains('|'))
+        {
+            type = (Enum.FoodType)System.Enum.Parse(typeof(Enum.FoodType), _type.Replace('|', ','));
+        }
+        else
+            type = (Enum.FoodType)System.Enum.Parse(typeof(Enum.FoodType), _type);
+        baseHardness = _baseHardness;
+        baseSweet = _baseSweet;
+        baseSour = _baseSour;
+        baseSalty = _baseSalty;
+        baseBitter = _baseBitter;
+        baseTier = _baseTier;
+        firstAttack = _firstAttack;
+        secondAttack = _secondAttack;
+        thirdAttack = _thirdAttack;
+        fourthAttack = _fourthAttack;
+    }
 }
 public class BaseInformationReader : SingletonWithoutMonobehaviour<BaseInformationReader>
 {
     List<string> recipeNames = new List<string>();
     Dictionary<string, UnitBaseInformation> unitBaseInformations = new Dictionary<string, UnitBaseInformation>();
+    Dictionary<string, UnitBaseInformation> enemyUnitBaseInformations = new Dictionary<string, UnitBaseInformation>();
     Dictionary<string, NonUnitBaseInformation> nonUnitBaseInformations = new Dictionary<string, NonUnitBaseInformation>();
     public List<string> RecipeNames { get { return recipeNames; } }
     public Dictionary<string, UnitBaseInformation> UnitBaseInformations { get { return unitBaseInformations; } }
+    public Dictionary<string, UnitBaseInformation> EnemyUnitBaseInformations { get { return enemyUnitBaseInformations; } }
     public Dictionary<string, NonUnitBaseInformation> NonUnitBaseInformations { get { return nonUnitBaseInformations; } }
 
     protected override void init()
@@ -122,6 +147,16 @@ public class BaseInformationReader : SingletonWithoutMonobehaviour<BaseInformati
                 recipe["ThirdAttack"].ToString(), recipe["FourthAttack"].ToString(),
                 recipe["IngredientInformation"].ToString());
             unitBaseInformations.Add(temp.RecipeName, temp);
+        }
+        list = CSVReader.Read("EnemyBaseInformationSheets");
+        foreach (var recipe in list)
+        {
+            var temp = new UnitBaseInformation(recipe["RecipeName"].ToString(), recipe["Type"].ToString(),
+                (int)recipe["BaseHardness"], (int)recipe["BaseSweet"], (int)recipe["BaseSour"],
+                (int)recipe["BaseSalty"], (int)recipe["BaseBitter"], (int)recipe["BaseTier"],
+                recipe["FirstAttack"].ToString(), recipe["SecondAttack"].ToString(),
+                recipe["ThirdAttack"].ToString(), recipe["FourthAttack"].ToString());
+            enemyUnitBaseInformations.Add(temp.RecipeName, temp);
         }
     }
 }

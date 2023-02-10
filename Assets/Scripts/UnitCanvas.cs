@@ -25,14 +25,14 @@ public class UnitCanvas : MonoBehaviour
             UnitUI unitUI = Instantiate(unitUIPrefab);
             unitUI.SetUnitUI(h);
             unitUI.transform.SetParent(homeUnit);
-            UnitManager.Instance.unitAndUnitUI.TryAdd(h, unitUI);
+            BattleUnitManager.Instance.unitAndUnitUI.TryAdd(h, unitUI);
         }
         foreach (Unit a in away)
         {
             UnitUI unitUI = Instantiate(unitUIPrefab);
             unitUI.SetUnitUI(a);
             unitUI.transform.SetParent(awayUnit);
-            UnitManager.Instance.unitAndUnitUI.TryAdd(a, unitUI);
+            BattleUnitManager.Instance.unitAndUnitUI.TryAdd(a, unitUI);
         }
     }
 
@@ -61,7 +61,7 @@ public class UnitCanvas : MonoBehaviour
         continueLastPhaseUI.SetActive(true);
         continueLastPhaseUIYesButton.onClick.AddListener(() =>
         {
-            UnitManager.Instance.CalculateBattle(4);
+            BattleUnitManager.Instance.CalculateBattle(4);
             continueLastPhaseUI.SetActive(false);
 
         });

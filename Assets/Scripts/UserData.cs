@@ -169,6 +169,7 @@ public class UserData : SingletonWithoutMonobehaviour<UserData>
         if (!autoPickObjects.Contains(_autoPickObject))
         {
             autoPickObjects.Add(_autoPickObject);
+            OnlySingleTonInMonoBehaviour.Instance.AddAutoPickCoroutine(_autoPickObject);
             SaveAutoPickObjects();
         }
     }
@@ -178,6 +179,7 @@ public class UserData : SingletonWithoutMonobehaviour<UserData>
         if (autoPickObjects.Contains(_autoPickObject))
         {
             autoPickObjects.Remove(_autoPickObject);
+            OnlySingleTonInMonoBehaviour.Instance.RemoveAutoPickCoroutine(_autoPickObject);
             SaveAutoPickObjects();
         }
     }
